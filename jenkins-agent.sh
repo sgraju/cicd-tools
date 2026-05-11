@@ -3,8 +3,8 @@
 #resize disk from 20GB to 50GB
 growpart /dev/nvme0n1 4
 
-lvextend -L +15G /dev/mapper/RootVG-varVol
-lvextend -L +15G /dev/mapper/RootVG-rootVol
+lvextend -L +10G /dev/mapper/RootVG-varVol
+lvextend -L +10G /dev/mapper/RootVG-rootVol
 lvextend -l +100%FREE /dev/mapper/RootVG-homeVol
 
 xfs_growfs /
@@ -28,7 +28,7 @@ systemctl enable docker
 usermod -aG docker ec2-user
 
 # Terraform
-# yum install -y yum-utils
+yum install -y yum-utils
 yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 yum -y install terraform
 
