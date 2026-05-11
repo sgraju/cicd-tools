@@ -11,17 +11,10 @@ xfs_growfs /
 xfs_growfs /var
 xfs_growfs /home
 
-curl -fsSL https://pkg.jenkins.io/redhat-stable/jenkins.repo \
--o /etc/yum.repos.d/jenkins.repo
-
+curl -fsSL https://pkg.jenkins.io/redhat-stable/jenkins.repo -o /etc/yum.repos.d/jenkins.repo
 rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-
 yum install fontconfig java-21-openjdk -y
-
 yum install jenkins -y
-
 systemctl daemon-reload
-
 systemctl enable jenkins
-
 systemctl start jenkins
