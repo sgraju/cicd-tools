@@ -3,8 +3,8 @@
 #resize disk from 20GB to 50GB
 growpart /dev/nvme0n1 4
 
-lvextend -L +10G /dev/mapper/RootVG-varVol
-lvextend -L +10G /dev/mapper/RootVG-rootVol
+lvextend -L +15G /dev/mapper/RootVG-varVol
+lvextend -L +15G /dev/mapper/RootVG-rootVol
 lvextend -l +100%FREE /dev/mapper/RootVG-homeVol
 
 xfs_growfs /
@@ -28,7 +28,7 @@ systemctl enable docker
 usermod -aG docker ec2-user
 
 # Terraform
-yum install -y yum-utils
+# yum install -y yum-utils
 yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 yum -y install terraform
 
@@ -47,9 +47,13 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 
 # eksctl and kubectl
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.2/2025-11-13/bin/linux/amd64/kubectl
+# curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.2/2025-11-13/bin/linux/amd64/kubectl
+# chmod +x ./kubectl
+# mkdir -p $HOME/bin && cp ./kubectl  /usr/local/bin && export PATH=$HOME/bin:$PATH
+
+curl -LO https://dl.k8s.io/release/v1.35.0/bin/linux/amd64/kubectl
 chmod +x ./kubectl
-mkdir -p $HOME/bin && cp ./kubectl  /usr/local/bin && export PATH=$HOME/bin:$PATH
+mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
 
 ARCH=amd64
 PLATFORM=$(uname -s)_$ARCH
