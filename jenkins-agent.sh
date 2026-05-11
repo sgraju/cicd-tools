@@ -12,8 +12,8 @@ xfs_growfs /var
 xfs_growfs /home
 
 # This is mandatory, nodejs installtion will break SSH if we dont update these packages
-sudo dnf update -y openssl\* openssh\* -y
-sudo yum install java-21-openjdk -y
+dnf update -y openssl\* openssh\* -y
+yum install java-21-openjdk -y
 
 dnf module disable nodejs -y
 dnf module enable nodejs:20 -y
@@ -46,14 +46,10 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 chmod 700 get_helm.sh
 ./get_helm.sh
 
-# eksctl and kubectl
-# curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.2/2025-11-13/bin/linux/amd64/kubectl
-# chmod +x ./kubectl
-# mkdir -p $HOME/bin && cp ./kubectl  /usr/local/bin && export PATH=$HOME/bin:$PATH
-
-curl -LO https://dl.k8s.io/release/v1.35.0/bin/linux/amd64/kubectl
+eksctl and kubectl
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.2/2025-11-13/bin/linux/amd64/kubectl
 chmod +x ./kubectl
-mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+mkdir -p $HOME/bin && cp ./kubectl  /usr/local/bin && export PATH=$HOME/bin:$PATH
 
 ARCH=amd64
 PLATFORM=$(uname -s)_$ARCH
